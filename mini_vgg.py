@@ -114,7 +114,7 @@ print(device)
 loss_fn = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.003, momentum=0.9)
 
-for epoch in range(15):  
+for epoch in range(20):  
 
     running_loss = 0.0
 
@@ -134,12 +134,10 @@ for epoch in range(15):
 
         running_loss += loss.item()
         
-        if epoch + 1 == 10:
-            torch.save(VGG_mini, './mini_vgg_trained_epochs_10')
-            
     print('epoch : %d , loss = %.3f' % (epoch+1, running_loss / 6250))
-
-torch.save(VGG_mini, './mini_vgg_trained')
+    
+    if (running_loss / 6250) < 0.05:
+        break
 
 print('\n < Finished Training > \n')
 
